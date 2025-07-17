@@ -12,7 +12,6 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 const allowedOrigins = [
   "http://localhost:5173",
   "https://movie-flix-app-lac.vercel.app",
@@ -26,13 +25,7 @@ const allowedOrigins = [
 
 app.use(
     cors({
-        origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
+        origin: allowedOrigins, 
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
         optionsSuccessStatus: 200,
