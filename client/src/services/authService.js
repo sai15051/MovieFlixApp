@@ -2,7 +2,15 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const host = import.meta.env.VITE_BACKEND_URL;
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
+
+// Add request debugger
+axios.interceptors.request.use(config => {
+  config.headers['X-Request-Source'] = 'movie-flix-web';
+  return config;
+});
+
 
 axios.defaults.withCredentials = true;
 const api = axios.create({
