@@ -14,11 +14,15 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const allowedOrigins = [
-    "http://localhost:5173",
-
-    "https://movie-flix-app-lac.vercel.app",
+  "http://localhost:5173",
+  "https://movie-flix-app-lac.vercel.app",
+  "https://movie-flix-app-git-master-sumanths-projects-952cfa2b.vercel.app",
+  "https://movie-flix-mawsibj2d-sumanths-projects-952cfa2b.vercel.app", // preview
+  "https://online-judge-pi-lemon.vercel.app",
+  "https://online-judge-fj7y.vercel.app",
 
 ];
+
 
 app.use(
     cors({
