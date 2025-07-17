@@ -9,13 +9,13 @@ const api = axios.create({
   baseURL: host,
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   }
 });
 export const login = async (email, password) => {
     
     try {
-        const { data } = await api.post(`${host}/login`, { email, password },{withCredentials: true});
+        const { data } = await api.post(`/login`, { email, password });
 
         if (data.success) {
             localStorage.setItem("token", data.token);
@@ -42,7 +42,7 @@ export const login = async (email, password) => {
 
 export const register = async (username, email, password) => {
     try {
-        const { data } = await axios.post(`${host}/signup`, {
+        const { data } = await api.post(`/signup`, {
             username,
             email,
             password,
