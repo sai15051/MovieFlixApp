@@ -5,10 +5,17 @@ import toast from "react-hot-toast";
 const host = import.meta.env.VITE_BACKEND_URL;
 
 axios.defaults.withCredentials = true;
+const api = axios.create({
+  baseURL: host,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
 export const login = async (email, password) => {
     
     try {
-        const { data } = await axios.post(`${host}/login`, { email, password },{withCredentials: true});
+        const { data } = await api.post(`${host}/login`, { email, password },{withCredentials: true});
 
         if (data.success) {
             localStorage.setItem("token", data.token);

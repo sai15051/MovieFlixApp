@@ -12,61 +12,44 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
-;const vercelPatterns = [
-  /^https:\/\/movie-flix(-[\w-]+)?-sumanths-projects-952cfa2b\.vercel\.app$/,
-  /^https:\/\/movie-flix(-[\w-]+)?\.vercel\.app$/,
-  /^https:\/\/online-judge(-[\w-]+)?\.vercel\.app$/,
-    /\.vercel\.app$/, 
-  "https://movie-flix-app.vercel.app" 
+const allowedOrigins = [
+  // Movie Flix App URLs
+  "https://movie-flix-app-lac.vercel.app",
+  "https://movie-flix-app-git-main-sumanths-projects-952cfa2b.vercel.app",
+  "https://movie-flix-app-sumanths-projects-952cfa2b.vercel.app",
+  /^https:\/\/movie-flix-app-.*-sumanths-projects-952cfa2b\.vercel\.app$/,
+  
+  // Online Judge URLs (if sharing same backend)
+  "https://online-judge-fj7y.vercel.app",
+  "https://online-judge-fj7y-git-main-sumanths-projects-952cfa2b.vercel.app",
+  
+  // Local development
+  "http://localhost:5173"
 ];
 
-// 2. CORS Configuration
-const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    // Check against allowed patterns
-    if (
-      process.env.NODE_ENV === 'development' && 
-      origin.includes('localhost')
-    ) {
-      return callback(null, true);
-    }
-
-    // Match Vercel deployment patterns
-    if (vercelPatterns.some(pattern => pattern.test(origin))) {
-      return callback(null, true);
-    }
-
-    // Production domain check
-    if (origin === 'https://movie-flix-app.vercel.app') {
-      return callback(null, true);
-    }
-
-    callback(new Error('Not allowed by CORS'));
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200
-};
-
-// 3. Middleware Setup
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Enable preflight for all routes
-
-// 4. Security Headers
-app.use((req, res, next) => {
-  res.header('X-Content-Type-Options', 'nosniff');
-  res.header('X-Frame-Options', 'DENY');
-  res.header('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
-  next();
-});
-
-
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or Postman)
+      if (!origin) return callback(null, true);
+      
+      // Check if origin is in allowedOrigins
+      if (allowedOrigins.some(allowedOrigin => {
+        return typeof allowedOrigin === 'string' 
+          ? origin === allowedOrigin
+          : allowedOrigin.test(origin);
+      })) {
+        return callback(null, true);
+      }
+      
+      callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200
+  })
+);
 
 
 app.use("/", router);
