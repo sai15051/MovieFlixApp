@@ -16,21 +16,33 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://movie-flix-app-lac.vercel.app",
   "https://movie-flix-app-git-master-sumanths-projects-952cfa2b.vercel.app",
-  "https://movie-flix-mawsibj2d-sumanths-projects-952cfa2b.vercel.app", // preview
+  "https://movie-flix-mawsibj2d-sumanths-projects-952cfa2b.vercel.app",
   "https://online-judge-pi-lemon.vercel.app",
   "https://online-judge-fj7y.vercel.app",
 
 ];
 
 
-app.use(
-    cors({
-        origin: allowedOrigins, 
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-        optionsSuccessStatus: 200,
-    })
-);
+
+
+app.use(cors({
+  origin: (origin, callback) => {
+    console.log(origin)
+    if (!origin) return callback(null, true);
+
+    
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+
+    if (/^https:\/\/movie-flix-.*\.vercel\.app$/.test(origin)) return callback(null, true);
+
+    console.error("Blocked by CORS:", origin);
+    return callback(new Error("Not allowed by CORS"));
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
+
 
 
 
