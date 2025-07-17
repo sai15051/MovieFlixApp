@@ -19,7 +19,7 @@ const createRoutes = () => (
         } /> */}
 
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="my-list" element={<AllMovies/>} />
         <Route path="/movies/:id" element={<MovieDetails />} />
 
