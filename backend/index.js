@@ -15,9 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://online-judge-fj7y.vercel.app",
-    "https://online-judge-fj7y-git-main-sumanths-projects-952cfa2b.vercel.app",
-    "https://online-judge-fj7y-4q598qt6e-sumanths-projects-952cfa2b.vercel.app",
+
+    "https://movie-flix-app-lac.vercel.app",
 
 ];
 
