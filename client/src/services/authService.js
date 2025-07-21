@@ -14,7 +14,7 @@ axios.interceptors.request.use(config => {
 
 axios.defaults.withCredentials = true;
 const api = axios.create({
-  baseURL: host,
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
