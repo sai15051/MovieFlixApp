@@ -40,6 +40,7 @@ const AllMovies = () => {
           language: 'en-US',
           page: pageNum,
         },
+         withCredentials: false
       });
 
       const rawMovies = res.data.results;

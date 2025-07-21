@@ -17,37 +17,8 @@
         { 
           "key": "Access-Control-Allow-Headers", 
           "value": "X-Requested-With, Content-Type, Authorization, Accept" 
-        },
-        { 
-          "key": "Access-Control-Allow-Credentials", 
-          "value": "true" 
-        },
-        { 
-          "key": "Access-Control-Max-Age", 
-          "value": "86400" 
         }
       ]
-    },
-    {
-      "source": "/login",
-      "headers": [
-        { 
-          "key": "Access-Control-Allow-Origin", 
-          "value": "https://movie-flix-app-lac.vercel.app" 
-        }
-      ]
-    }
-  ],
-  "routes": [
-    { 
-      "src": "/login", 
-      "methods": ["OPTIONS"], 
-      "dest": "/api/login",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://movie-flix-app-lac.vercel.app",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization"
-      }
     }
   ]
 }
