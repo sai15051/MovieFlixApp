@@ -4,7 +4,7 @@ import axios from 'axios';
 import './MovieDetails.scss';
 
 const TMDB_API_KEY = '7c4829680c5dc82e506e4cf962a26187';
-const BASE_URL = 'https://api.themoviedb.org/3';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 function MovieDetails() {
   const { id } = useParams();
@@ -12,11 +12,7 @@ function MovieDetails() {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/movie/${id}`, {
-        params: {
-          api_key: TMDB_API_KEY,
-          language: 'en-US',
-        },
+      .get(`${BASE_URL}/api/movie/${id}`, {
       })
       .then((res) => setMovie(res.data))
       .catch(console.error);

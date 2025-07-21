@@ -31,17 +31,15 @@ const AllMovies = () => {
   });
   const [stats, setStats] = useState(null);
 
-  const fetchMovies = async (pageNum = 1) => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${BASE_URL}/trending/all/week`, {
-        params: {
-          api_key: TMDB_API_KEY,
-          language: 'en-US',
-          page: pageNum,
-        },
-         withCredentials: false
-      });
+
+const fetchMovies = async (pageNum = 1) => {
+  setLoading(true);
+  try {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/trending`, {
+      params: { page: pageNum }
+    });
+
+   
 
       const rawMovies = res.data.results;
 
