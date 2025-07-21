@@ -35,9 +35,14 @@ const AllMovies = () => {
 const fetchMovies = async (pageNum = 1) => {
   setLoading(true);
   try {
-    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/trending`, {
-      params: { page: pageNum }
+    const res = await axios.get(`https://api.themoviedb.org/3/trending/all/week`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US',
+        page: pageNum,
+      }
     });
+
 
    
 
